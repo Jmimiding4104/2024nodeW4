@@ -5,7 +5,8 @@ const User = require('../models/userSchema');
 const Post = require('../models/postSchema');
 
 const posts = {
-    async getPosts({ req, res }) {
+    async getPosts( req, res ) {
+        console.log(req)
         const timeSort = req.query.timeSort == "asc" ? "createdAt" : "-createdAt"
         const q = req.query.q !== undefined ? { "content": new RegExp(req.query.q) } : {};
         const post = await Post.find().populate({
