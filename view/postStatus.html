@@ -18,12 +18,7 @@
         <div class="nav">
           <p class="nav-text">MetaWall</p>
           <div class="nav-user">
-            <img
-              class="nav-img"
-              src="./asset//user.png"
-              alt="user"
-              class="nav-user-img"
-            />
+            <img src="" alt="user" class="nav-user-img" />
             <span class="nav-user-name">Member</span>
             <!-- hover出現的選單 -->
             <div class="nav-user-hover border">
@@ -239,6 +234,7 @@
     height: 30px;
     margin-right: 10px;
     cursor: default;
+    border-radius: 50%;
   }
 
   /* 導覽列右邊使用者名稱 */
@@ -455,12 +451,48 @@
 
 <script>
   const url = "https://two024nodew4.onrender.com"
-  const navImg = document.querySelector(".nav-img")
+  const navUserImg = document.querySelector(".nav-user-img")
+  const border = document.querySelector(".post-content .border")
+  const borderBtn = document.querySelector(".post-btn Button")
+  console.log(borderBtn)
+  let userInfo = ""
 
   function getData() {
-    console.log(123)
-    axios.get(`${url}/users`).then((res) => console.log(res))
+    axios
+      .get(`${url}/users`)
+      .then((res) => {
+        userInfo = res.data.data[0]
+        renderNavImg()
+      })
+      .catch(() => {
+        alert("ERROR")
+      })
   }
+
+  function renderNavImg() {
+    navUserImg.src = userInfo.image
+  }
+
+  function sendPost(data) {
+    axios
+      .post(`${url}/posts`, data)
+      .then((res) => {
+        alert("上傳成功!!");
+        border.value = null;
+        location.href="./wall.html";
+      })
+      .catch((err) => {
+        alert("ERROR")
+      })
+  }
+
+  borderBtn.addEventListener("click", (e) => {
+    e.preventDefault()
+    const data = {
+      content: border.value,
+    };
+    sendPost(data);
+  })
 
   function init() {
     getData()
