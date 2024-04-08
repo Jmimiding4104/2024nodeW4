@@ -18,7 +18,7 @@
         <div class="nav">
           <p class="nav-text">MetaWall</p>
           <div class="nav-user">
-            <img src="./asset//user.png" alt="user" class="nav-user-img" />
+            <img src="" alt="user" class="nav-user-img" />
             <span class="nav-user-name">Member</span>
             <!-- hover出現的選單 -->
             <div class="nav-user-hover border">
@@ -232,6 +232,7 @@
     height: 30px;
     margin-right: 10px;
     cursor: default;
+    border-radius: 50%;
   }
 
   /* 導覽列右邊使用者名稱 */
@@ -521,45 +522,60 @@
 
 <script>
   const url = "https://two024nodew4.onrender.com"
+  const navUserImg = document.querySelector(".nav-user-img")
   let webData = ""
+  let userInfo = ""
 
   function getData(asc, q) {
+    axios
+      .get(`${url}/users`)
+      .then((res) => {
+        userInfo = res.data.data[0]
+        renderNavImg()
+      })
+      .catch(() => {
+        alert("ERROR")
+      })
     axios.get(`${url}/posts?timeSort=${asc}&q=${q}`).then((res) => {
       webData = res.data.data
       renderPage(webData)
-      console.log(`${url}posts?timeSort=${asc}&q=${q}`)
+      console.log(q)
     })
+  }
+
+  function renderNavImg() {
+    navUserImg.src = userInfo.image
   }
 
   function renderPage(data) {
     let renderData = ""
     document.getElementById("posts")
     data.forEach((i) => {
-      let dataTime = new Date(i.createAt)
+      let dataTime = new Date(i.createdAt)
       let image = ""
       const normalDate = dataTime.toLocaleString()
       if (i.image !== undefined) {
         image = `
-                    <img src="${i.image}" alt="" class="">
-                `
+          <img src="${i.image}" alt="" class="">
+        `
       }
       renderData += `
-            <div class="wall-card border">
-                        <div class="wall-card-user">
-                            <p class="wall-card-user-img">
-                                <img src="${i.user.photo}" alt="user" class="nav-user-img">
-                            </p>
-                            <p class="wall-card-user-info">
-                                <span class="wall-card-user-name">${i.user.name}</span>
-                                <span class="wall-card-user-date">${normalDate}</span>
-                            </p>
-                        </div>
-                        <div class="wall-card-article">
-                            <span class="">${i.content}</span>
-                        </div>
-                        <div class="wall-card-img">${image}</div>
-                    </div>
-            `
+        <div class="wall-card border">
+          <div class="wall-card-user">
+            <p class="wall-card-user-img">
+              <img src="${i.user.image}" alt="user" class="nav-user-img">
+            </p>
+            <p class="wall-card-user-info">
+              <span class="wall-card-user-name">${i.user.name}</span>
+              <span class="wall-card-user-date">${normalDate}</span>
+            </p>
+          </div>
+          <div class="wall-card-article">
+            <span class="">${i.content}</span>
+          </div>
+          <div class="wall-card-img">${image}</div>
+        </div>
+      `
     })
     document.getElementById("posts").innerHTML = renderData
   }
@@ -577,13 +593,13 @@
   function changeSort() {
     asc = chooseAsc.value
     getData(asc, searchText)
-    //
   }
 
   const iconSearch = document.getElementById("icon-search")
   iconSearch.addEventListener("click", searchItem)
   function searchItem() {
     searchText = document.getElementById("search-text").value
+    console.log(searchText)
     getData(asc, searchText)
   }
 

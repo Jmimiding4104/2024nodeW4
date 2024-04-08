@@ -454,7 +454,6 @@
   const navUserImg = document.querySelector(".nav-user-img")
   const border = document.querySelector(".post-content .border")
   const borderBtn = document.querySelector(".post-btn Button")
-  console.log(borderBtn)
   let userInfo = ""
 
   function getData() {
@@ -477,9 +476,9 @@
     axios
       .post(`${url}/posts`, data)
       .then((res) => {
-        alert("上傳成功!!");
-        border.value = null;
-        location.href="./wall.html";
+        alert("上傳成功!!")
+        border.value = null
+        location.href = "./wall.html"
       })
       .catch((err) => {
         alert("ERROR")
@@ -490,8 +489,8 @@
     e.preventDefault()
     const data = {
       content: border.value,
-    };
-    sendPost(data);
+    }
+    sendPost(data)
   })
 
   function init() {

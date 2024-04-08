@@ -6,10 +6,9 @@ const Post = require('../models/postSchema');
 
 const posts = {
     async getPosts( req, res ) {
-        console.log(req)
         const timeSort = req.query.timeSort == "asc" ? "createdAt" : "-createdAt"
         const q = req.query.q !== undefined ? { "content": new RegExp(req.query.q) } : {};
-        const post = await Post.find().populate({
+        const post = await Post.find(q).populate({
             path: 'user',
             select: 'name image'
         }).sort(timeSort);;
