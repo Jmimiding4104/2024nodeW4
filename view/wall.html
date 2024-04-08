@@ -539,7 +539,6 @@
     axios.get(`${url}/posts?timeSort=${asc}&q=${q}`).then((res) => {
       webData = res.data.data
       renderPage(webData)
-      console.log(q)
     })
   }
 
@@ -599,7 +598,6 @@
   iconSearch.addEventListener("click", searchItem)
   function searchItem() {
     searchText = document.getElementById("search-text").value
-    console.log(searchText)
     getData(asc, searchText)
   }
 
