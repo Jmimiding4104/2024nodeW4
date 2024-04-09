@@ -78,7 +78,7 @@
             </p>
             <p class="name">
               <button type="button" class="">
-                <img src="./asset//user.png" alt="" class="" />
+                <img src="" alt="" class="" />
                 <span class=""> 邊緣小杰 </span>
               </button>
             </p>
@@ -530,13 +530,16 @@
     axios
       .get(`${url}/users`)
       .then((res) => {
+        console.log(123)
         userInfo = res.data.data[0]
+        console.log(456)
         renderNavImg()
       })
       .catch(() => {
         alert("ERROR")
       })
     axios.get(`${url}/posts?timeSort=${asc}&q=${q}`).then((res) => {
+      console.log(789)
       webData = res.data.data
       renderPage(webData)
     })
