@@ -471,7 +471,7 @@
     formData.append("photo", file)
 
     axios
-      .post(`${testurl}/image/upload`, formData)
+      .post(`${url}/image/upload`, formData)
       .then((res) => {
         postImg = res.data.url
         renderPhoto.innerHTML = `<img src="${postImg}" alt="上傳圖片">`
@@ -497,7 +497,7 @@
 
   function sendPost(data) {
     axios
-      .post(`${testurl}/posts`, data)
+      .post(`${url}/posts`, data)
       .then((res) => {
         alert("上傳成功!!")
         border.value = null

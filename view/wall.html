@@ -537,7 +537,7 @@
       .catch(() => {
         alert("ERROR")
       })
-    axios.get(`${testurl}/posts?timeSort=${asc}&q=${q}`).then((res) => {
+    axios.get(`${url}/posts?timeSort=${asc}&q=${q}`).then((res) => {
       webData = res.data.data
       renderPage(webData)
     })
@@ -554,12 +554,12 @@
       let dataTime = new Date(i.createdAt)
       let image = ""
       const normalDate = dataTime.toLocaleString()
+      console.log(i)
       if (i.image !== '') {
         image = `
           <img src="${i.image}" alt="" class="">
         `
       }
-      console.log(i)
       renderData += `
         <div class="wall-card border">
           <div class="wall-card-user">
