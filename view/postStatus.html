@@ -497,7 +497,7 @@
 
   function sendPost(data) {
     axios
-      .post(`${url}/posts`, data)
+      .post(`${testurl}/posts`, data)
       .then((res) => {
         alert("上傳成功!!")
         border.value = null
@@ -514,6 +514,7 @@
       content: border.value,
       image : postImg
     }
+    console.log(data)
     sendPost(data)
   })
 

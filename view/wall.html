@@ -522,6 +522,7 @@
 
 <script>
   const url = "https://two024nodew4.onrender.com"
+  const testurl = "http://127.0.0.1:3005"
   const navUserImg = document.querySelector(".nav-user-img")
   let webData = ""
   let userInfo = ""
@@ -530,16 +531,13 @@
     axios
       .get(`${url}/users`)
       .then((res) => {
-        console.log(123)
         userInfo = res.data.data[0]
-        console.log(456)
         renderNavImg()
       })
       .catch(() => {
         alert("ERROR")
       })
-    axios.get(`${url}/posts?timeSort=${asc}&q=${q}`).then((res) => {
-      console.log(789)
+    axios.get(`${testurl}/posts?timeSort=${asc}&q=${q}`).then((res) => {
       webData = res.data.data
       renderPage(webData)
     })
@@ -556,11 +554,12 @@
       let dataTime = new Date(i.createdAt)
       let image = ""
       const normalDate = dataTime.toLocaleString()
-      if (i.image !== undefined) {
+      if (i.image !== '') {
         image = `
           <img src="${i.image}" alt="" class="">
         `
       }
+      console.log(i)
       renderData += `
         <div class="wall-card border">
           <div class="wall-card-user">
