@@ -451,10 +451,35 @@
 
 <script>
   const url = "https://two024nodew4.onrender.com"
+  const testurl = "http://127.0.0.1:3005"
   const navUserImg = document.querySelector(".nav-user-img")
   const border = document.querySelector(".post-content .border")
   const borderBtn = document.querySelector(".post-btn Button")
+  const uploadPhoto = document.getElementById("uploadPhoto")
+  const inputPhoto = document.getElementById("inputPhoto")
+  const renderPhoto = document.getElementById("renderPhoto")
+  let postImg = ""
   let userInfo = ""
+
+  uploadPhoto.addEventListener("click", function () {
+    inputPhoto.click()
+  })
+
+  inputPhoto.addEventListener("change", function () {
+    const file = this.files[0]
+    const formData = new FormData()
+    formData.append("photo", file)
+
+    axios
+      .post(`${testurl}/image/upload`, formData)
+      .then((res) => {
+        postImg = res.data.url
+        console.log(159)
+        console.log(postImg)
+        renderPhoto.innerHTML = `<img src="${postImg}">`
+      })
+      .catch((err) => console.log(err))
+  })
 
   function getData() {
     axios

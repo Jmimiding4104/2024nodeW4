@@ -11,4 +11,5 @@ router.delete('/', PostControllers.deletePosts);
 router.delete('/:id', PostControllers.deletePost);
 
 
+
 module.exports = router;
