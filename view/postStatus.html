@@ -474,9 +474,7 @@
       .post(`${testurl}/image/upload`, formData)
       .then((res) => {
         postImg = res.data.url
-        console.log(159)
-        console.log(postImg)
-        renderPhoto.innerHTML = `<img src="${postImg}">`
+        renderPhoto.innerHTML = `<img src="${postImg}" alt="上傳圖片">`
       })
       .catch((err) => console.log(err))
   })
@@ -514,6 +512,7 @@
     e.preventDefault()
     const data = {
       content: border.value,
+      image : postImg
     }
     sendPost(data)
   })
